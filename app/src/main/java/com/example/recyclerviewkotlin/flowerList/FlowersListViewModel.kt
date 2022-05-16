@@ -1,32 +1,36 @@
 package com.example.recyclerviewkotlin.flowerList
 
 import android.content.Context
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.recyclerviewkotlin.data.DataSource
 import com.example.recyclerviewkotlin.data.Flower
-import kotlin.random.Random
 
 class FlowersListViewModel(val dataSource: DataSource) : ViewModel() {
 
-    val flowersLiveData = dataSource.getFlowerList()
+    val flowersLiveData = MutableLiveData(dataSource.flowerList)
 
-    /* If the name and description are present, create new Flower and add it to the datasource */
-    fun insertFlower(flowerName: String?, flowerDescription: String?) {
-        if (flowerName == null || flowerDescription == null) {
-            return
-        }
-
-        val image = dataSource.getRandomFlowerImageAsset()
-        val newFlower = Flower(
-            Random.nextLong(),
-            flowerName,
-            image,
-            flowerDescription
-        )
-
-        dataSource.addFlower(newFlower)
+    fun addFlower(name: String, image: Int?, description: String) {
+        dataSource.addFlower(dataSource.newFlowerIndexing(name, image, description))
+        updateLiveData()
     }
+
+    fun removeFlower(flower: Flower) {
+        dataSource.removeFlower(flower)
+        updateLiveData()
+    }
+
+    private fun updateLiveData() {
+        flowersLiveData.value = dataSource.flowerList
+    }
+
+    fun getFlowerFromId(id: Long): Flower? {
+        return dataSource.getFlowerFromId(id)  // TODO: Leemos directamente del modelo, no del LiveData
+    }
+
+
+
 }
 
 class FlowersListViewModelFactory(private val context: Context) : ViewModelProvider.Factory {

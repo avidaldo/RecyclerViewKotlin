@@ -1,55 +1,18 @@
 package com.example.recyclerviewkotlin.data
 
 import android.content.res.Resources
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+import com.example.recyclerviewkotlin.R
+
+
+val IMAGE_NO_AVALIABLE_RESOURCE = R.drawable.no_avaliable
 
 /* Handles operations on flowersLiveData and holds details about it. */
 class DataSource(resources: Resources) {
-    private val initialFlowerList = flowerList(resources)
-    private val flowersLiveData = MutableLiveData(initialFlowerList)
 
-    /* Adds flower to liveData and posts value. */
-    fun addFlower(flower: Flower) {
-        val currentList = flowersLiveData.value
-        if (currentList == null) {
-            flowersLiveData.postValue(listOf(flower))
-        } else {
-            val updatedList = currentList.toMutableList()
-            updatedList.add(0, flower)
-            flowersLiveData.postValue(updatedList)
-        }
-    }
-
-    /* Removes flower from liveData and posts value. */
-    fun removeFlower(flower: Flower) {
-        val currentList = flowersLiveData.value
-        if (currentList != null) {
-            val updatedList = currentList.toMutableList()
-            updatedList.remove(flower)
-            flowersLiveData.postValue(updatedList)
-        }
-    }
-
-    /* Returns flower given an ID. */
-    fun getFlowerForId(id: Long): Flower? {
-        flowersLiveData.value?.let { flowers ->
-            return flowers.firstOrNull{ it.id == id}
-        }
-        return null
-    }
-
-    fun getFlowerList(): LiveData<List<Flower>> {
-        return flowersLiveData
-    }
-
-    /* Returns a random flower asset for flowers that are added. */
-    fun getRandomFlowerImageAsset(): Int? {
-        val randomNumber = (initialFlowerList.indices).random()
-        return initialFlowerList[randomNumber].image
-    }
-
+    /* Esta clase será un singleton, pero como requerimos que reciba el contexto como
+    parámetro, no podemos simplemente crear un object. */
     companion object {
+        @Volatile
         private var INSTANCE: DataSource? = null
 
         fun getDataSource(resources: Resources): DataSource {
@@ -60,4 +23,91 @@ class DataSource(resources: Resources) {
             }
         }
     }
+
+    val flowerList = flowerList(resources).toMutableList()
+
+
+
+    fun addFlower(flower: Flower) {
+            flowerList.add(0, flower)
+    }
+
+    fun removeFlower(flower: Flower) {
+            flowerList.remove(flower)
+    }
+
+    fun getFlowerFromId(id: Long) = flowerList.firstOrNull { it.id == id }
+
+
+
+    private var idIndex = 1L
+
+    fun newFlowerIndexing(name: String, image: Int?, description: String) =
+        Flower(++idIndex, name, image, description)
+
+
+    /* Returns initial list of flowers. */
+    fun flowerList(resources: Resources): List<Flower> {
+        return listOf(
+            newFlowerIndexing(
+                name = resources.getString(R.string.flower1_name),
+                image = R.drawable.rose,
+                description = resources.getString(R.string.flower1_description)
+            ),
+            newFlowerIndexing(
+                name = resources.getString(R.string.flower2_name),
+                image = R.drawable.freesia,
+                description = resources.getString(R.string.flower2_description)
+            ),
+            newFlowerIndexing(
+                name = resources.getString(R.string.flower3_name),
+                image = R.drawable.lily,
+                description = resources.getString(R.string.flower3_description)
+            ),
+            newFlowerIndexing(
+                name = resources.getString(R.string.flower4_name),
+                image = R.drawable.sunflower,
+                description = resources.getString(R.string.flower4_description)
+            ),
+            newFlowerIndexing(
+                name = resources.getString(R.string.flower5_name),
+                image = R.drawable.peony,
+                description = resources.getString(R.string.flower5_description)
+            ),
+            newFlowerIndexing(
+                name = resources.getString(R.string.flower6_name),
+                image = R.drawable.daisy,
+                description = resources.getString(R.string.flower6_description)
+            ),
+            newFlowerIndexing(
+                name = resources.getString(R.string.flower7_name),
+                image = R.drawable.lilac,
+                description = resources.getString(R.string.flower7_description)
+            ),
+            newFlowerIndexing(
+                name = resources.getString(R.string.flower8_name),
+                image = R.drawable.marigold,
+                description = resources.getString(R.string.flower8_description)
+            ),
+            newFlowerIndexing(
+                name = resources.getString(R.string.flower9_name),
+                image = R.drawable.poppy,
+                description = resources.getString(R.string.flower9_description)
+            ),
+            newFlowerIndexing(
+                name = resources.getString(R.string.flower10_name),
+                image = R.drawable.daffodil,
+                description = resources.getString(R.string.flower10_description)
+            ),
+            newFlowerIndexing(
+                name = resources.getString(R.string.flower11_name),
+                image = R.drawable.dahlia,
+                description = resources.getString(R.string.flower11_description)
+            )
+        )
+    }
+
 }
+
+
+

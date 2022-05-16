@@ -22,7 +22,7 @@
         android:layout_height="320dp"
         android:layout_gravity="center"
         android:contentDescription="@string/flower_image_content_description"
-        tools:srcCompat="@drawable/rose" />
+        tools:srcCompat="@drawable/no_avaliable" />
 
     <TextView
         android:id="@+id/flower_detail_description"

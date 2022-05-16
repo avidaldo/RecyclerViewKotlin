@@ -5,7 +5,7 @@
 
     <!-- Strings used for fragments for navigation -->
     <string name="main_fragment_label">First Fragment</string>
-    <string name="add_flower_fragment_label">Second Fragment</string>
+    <string name="add_flower_fragment_label">Add flower</string>
 
 
     <string name="add_flower">Add Flower</string>

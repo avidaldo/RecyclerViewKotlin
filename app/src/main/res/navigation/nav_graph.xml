@@ -10,29 +10,32 @@
         android:name="com.example.recyclerviewkotlin.flowerList.FlowerListFragment"
         android:label="FlowerListFragment"
         tools:layout="@layout/fragment_flower_list">
-
         <action
-            android:id="@+id/action_FirstFragment_to_SecondFragment"
-            app:destination="@id/SecondFragment" />
+            android:id="@+id/action_to_addFlowerFragment"
+            app:destination="@id/AddFlowerFragment" />
         <action
-            android:id="@+id/action_FlowerListFragment_to_flowerDetailFragment"
+            android:id="@+id/action_to_flowerDetailFragment"
             app:destination="@id/flowerDetailFragment" />
     </fragment>
     <fragment
-        android:id="@+id/SecondFragment"
+        android:id="@+id/AddFlowerFragment"
         android:name="com.example.recyclerviewkotlin.addFlower.AddFlowerFragment"
         android:label="@string/add_flower_fragment_label"
         tools:layout="@layout/fragment_add_flower">
         <action
-            android:id="@+id/action_SecondFragment_to_FirstFragment"
+            android:id="@+id/action_to_flowerListFragment"
             app:destination="@id/FlowerListFragment" />
     </fragment>
     <fragment
         android:id="@+id/flowerDetailFragment"
         android:name="com.example.recyclerviewkotlin.flowerDetail.FlowerDetailFragment"
-        android:label="FlowerDetailFragment" >
+        android:label="FlowerDetailFragment"
+        tools:layout="@layout/fragment_flower_detail">
         <action
-            android:id="@+id/action_flowerDetailFragment_to_FlowerListFragment"
+            android:id="@+id/action_to_FlowerListFragment"
             app:destination="@id/FlowerListFragment" />
+        <argument
+            android:name="flower_id"
+            app:argType="long" />
     </fragment>
 </navigation>
