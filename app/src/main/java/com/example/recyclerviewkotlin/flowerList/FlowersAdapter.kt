@@ -1,14 +1,10 @@
 package com.example.recyclerviewkotlin.flowerList
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.recyclerviewkotlin.R
 import com.example.recyclerviewkotlin.data.Flower
 import com.example.recyclerviewkotlin.data.IMAGE_NO_AVALIABLE_RESOURCE
 import com.example.recyclerviewkotlin.databinding.FlowerItemBinding
@@ -22,7 +18,7 @@ class FlowersAdapter(private val onClick: (Flower) -> Unit) :
 
         private val flowerTextView = binding.flowerText
         private val flowerImageView = binding.flowerImage
-        //private var currentFlower: Flower? = null
+        private var currentFlower: Flower? = null
 
         init {
             binding.root.setOnClickListener {
@@ -54,7 +50,6 @@ class FlowersAdapter(private val onClick: (Flower) -> Unit) :
     }
 }
 
-/*
 object FlowerDiffCallback : DiffUtil.ItemCallback<Flower>() {
     override fun areItemsTheSame(oldItem: Flower, newItem: Flower): Boolean {
         return oldItem == newItem
@@ -63,4 +58,4 @@ object FlowerDiffCallback : DiffUtil.ItemCallback<Flower>() {
     override fun areContentsTheSame(oldItem: Flower, newItem: Flower): Boolean {
         return oldItem.id == newItem.id
     }
-}*/
+}

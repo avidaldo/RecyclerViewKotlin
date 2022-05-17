@@ -4,10 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.example.recyclerviewkotlin.R
 import com.example.recyclerviewkotlin.databinding.FragmentAddFlowerBinding
 import com.example.recyclerviewkotlin.flowerList.FlowersListViewModel
 import com.example.recyclerviewkotlin.flowerList.FlowersListViewModelFactory
@@ -40,17 +42,19 @@ class AddFlowerFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.doneButton.setOnClickListener {
-            if (binding.addFlowerName.text!!.isNotBlank() && binding.addFlowerDescription.text!!.isNotBlank()) {
+            if (binding.addFlowerName.text!!.isNotBlank()) {
                 flowersListViewModel.addFlower(
                     binding.addFlowerName.text.toString(),
                     null,
                     binding.addFlowerDescription.text.toString()
                 )
-            }
+            } else alertNotFlower()
             findNavController().navigate(AddFlowerFragmentDirections.actionToFlowerListFragment())
         }
-
-
     }
+
+    private fun alertNotFlower() =
+        Toast.makeText(requireContext(), getString(R.string.no_flower), Toast.LENGTH_SHORT).show()
+
 
 }
